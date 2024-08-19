@@ -1,0 +1,121 @@
+# app.py
+from flask import Flask, request, jsonify, render_template, redirect, url_for
+import sqlite3
+
+app = Flask(__name__)
+DATABASE = 'hris.db'
+
+def get_db_connection():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+@app.route('/')
+def index():
+    conn = get_db_connection()
+    employees = conn.execute('SELECT * FROM employees').fetchall()
+    conn.close()
+    return render_template('index.html', employees=employees)
+
+@app.route('/employee/<int:id>')
+def employee_detail(id):
+    conn = get_db_connection()
+    employee = conn.execute('SELECT * FROM employees WHERE id = ?', (id,)).fetchone()
+    conn.close()
+    if employee is None:
+        return jsonify({'error': 'Employee not found'}), 404
+    return render_template('employee_detail.html', employee=employee)
+
+@app.route('/employee/add', methods=('GET', 'POST'))
+def add_employee():
+    if request.method == 'POST':
+        name = request.form['name']
+        position = request.form['position']
+        salary = request.form['salary']
+
+        conn = get_db_connection()
+        conn.execute('INSERT INTO employees (name, position, salary) VALUES (?, ?, ?)',
+                     (name, position, salary))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
+    return render_template('add_employee.html')
+
+@app.route('/employee/<int:id>/edit', methods=('GET', 'POST'))
+def edit_employee(id):
+    conn = get_db_connection()
+    employee = conn.execute('SELECT * FROM employees WHERE id = ?', (id,)).fetchone()
+
+    if request.method == 'POST':
+        name = request.form['name']
+        position = request.form['position']
+        salary = request.form['salary']
+
+        conn.execute('UPDATE employees SET name = ?, position = ?, salary = ? WHERE id = ?',
+                     (name, position, salary, id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('index'))
+
+    conn.close()
+    return render_template('edit_employee.html', employee=employee)
+
+@app.route('/employee/<int:id>/delete', methods=('POST',))
+def delete_employee(id):
+    conn = get_db_connection()
+    conn.execute('DELETE FROM employees WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
+# init_db.py
+import sqlite3
+
+DATABASE = 'hris.db'
+
+def init_db():
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+    cur.execute('''
+        CREATE TABLE employees (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            position TEXT NOT NULL,
+            salary REAL NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+if __name__ == '__main__':
+    init_db()
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HRIS - Employees</title>
+</head>
+<body>
+    <h1>Employee List</h1>
+    <a href="{{ url_for('add_employee') }}">Add New Employee</a>
+    <ul>
+        {% for employee in employees %}
+        <li>
+            <a href="{{ url_for('employee_detail', id=employee['id']) }}">{{ employee['name'] }}</a>
+            - {{ employee['position'] }} (${{ employee['salary'] }})
+            <a href="{{ url_for('edit_employee', id=employee['id']) }}">Edit</a>
+            <form action="{{ url_for('delete_employee', id=employee['id']) }}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
