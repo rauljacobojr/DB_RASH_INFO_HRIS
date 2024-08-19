@@ -1,0 +1,106 @@
+import json
+
+class Employee:
+    def __init__(self, emp_id, name, age, position, department):
+        self.id = emp_id
+        self.name = name
+        self.age = age
+        self.position = position
+        self.department = department
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'age': self.age,
+            'position': self.position,
+            'department': self.department
+        }
+
+class HRIS:
+    def __init__(self, file_name='employees.json'):
+        self.file_name = file_name
+        self.employees = self.load_data()
+
+    def load_data(self):
+        try:
+            with open(self.file_name, 'r') as file:
+                data = json.load(file)
+                return [Employee(**emp) for emp in data]
+        except FileNotFoundError:
+            return []
+
+    def save_data(self):
+        with open(self.file_name, 'w') as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=4)
+
+    def add_employee(self):
+        emp_id = input("Enter Employee ID: ")
+        name = input("Enter Employee Name: ")
+        age = input("Enter Employee Age: ")
+        position = input("Enter Employee Position: ")
+        department = input("Enter Employee Department: ")
+        new_employee = Employee(emp_id, name, age, position, department)
+        self.employees.append(new_employee)
+        self.save_data()
+        print(f"Employee {name} added successfully!")
+
+    def view_employees(self):
+        if self.employees:
+            print("\nEmployee List:")
+            for idx, emp in enumerate(self.employees, start=1):
+                print(f"{idx}. {emp.name} - {emp.position} - {emp.department} (ID: {emp.id})")
+        else:
+            print("No employees found.")
+
+    def search_employee(self):
+        search_id = input("Enter Employee ID to search: ")
+        found_employees = [emp for emp in self.employees if emp.id == search_id]
+        if found_employees:
+            emp = found_employees[0]
+            print(f"\nEmployee Found: {emp.name} - {emp.position} - {emp.department} (ID: {emp.id})")
+        else:
+            print("Employee not found.")
+
+    def update_employee(self):
+        search_id = input("Enter Employee ID to update: ")
+        found_employees = [emp for emp in self.employees if emp.id == search_id]
+        if found_employees:
+            emp = found_employees[0]
+            print(f"Updating Employee: {emp.name} - {emp.position} - {emp.department} (ID: {emp.id})")
+            emp.name = input("Enter new name: ") or emp.name
+            emp.age = input("Enter new age: ") or emp.age
+            emp.position = input("Enter new position: ") or emp.position
+            emp.department = input("Enter new department: ") or emp.department
+            self.save_data()
+            print(f"Employee {emp.name} updated successfully!")
+        else:
+            print("Employee not found.")
+
+    def delete_employee(self):
+        search_id = input("Enter Employee ID to delete: ")
+        self.employees = [emp for emp in self.employees if emp.id != search_id]
+        self.save_data()
+        print(f"Employee with ID {search_id} deleted successfully!")
+
+    def menu(self):
+        while True:
+            print("\nHRIS Menu")
+            print("1. Add Employee")
+            print("2. View Employees")
+            print("3. Search Employee")
+            print("4. Update Employee")
+            print("5. Delete Employee")
+            print("6. Exit")
+
+            choice = input("Choose an option: ")
+
+            if choice == '1':
+                self.add_employee()
+            elif choice == '2':
+                self.view_employees()
+            elif choice == '3':
+                self.search_employee()
+            elif choice == '4':
+                self.update_employee()
+            elif choice == '5
