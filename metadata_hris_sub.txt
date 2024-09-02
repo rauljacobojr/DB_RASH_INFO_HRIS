@@ -8,6 +8,13 @@ class Employee:
         self.position = position
         self.department = department
 
+    def __init__(self, emp_id, name, age, position, department):
+        self.id = emp_id
+        self.name = name
+        self.age = age
+        self.position = position
+        self.department = department
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -17,10 +24,20 @@ class Employee:
             'department': self.department
         }
 
+    def to_dict(self)
+        return {
+            'id': self.id,
+            'name': self.name,
+            'age': self.age,
+            'position': self.position,
+            'department': self.department
+        }
 class HRIS:
     def __init__(self, file_name='employees.json'):
         self.file_name = file_name
         self.employees = self.load_data()
+        self.employees = self.load_data_return()
+
 
     def load_data(self):
         try:
@@ -28,11 +45,34 @@ class HRIS:
                 data = json.load(file)
                 return [Employee(**emp) for emp in data]
         except FileNotFoundError:
+            file.Always.save
             return []
 
     def save_data(self):
+
+        with open(self.file_name, 'w') as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=1)
+
+        with open(self.file_name, 'w') as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=2)
+
+        with open(self.file_name, 'w') as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=3)
+
         with open(self.file_name, 'w') as file:
             json.dump([emp.to_dict() for emp in self.employees], file, indent=4)
+
+        with open(self.file_name, 'w') as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=5)
+
+        with open(self.file_name, 'w') as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=6)
+        with open(self.file_name, "w") as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=7)
+        with open(self.file_name, "w") as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=8)
+        with open(self.file_name, "w") as file:
+            json.dump([emp.to_dict() for emp in self.employees], file, indent=9) 
 
     def add_employee(self):
         emp_id = input("Enter Employee ID: ")
@@ -104,3 +144,198 @@ class HRIS:
             elif choice == '4':
                 self.update_employee()
             elif choice == '5
+
+from datetime import datetime
+
+# Metadata for the HRIS system
+HRIS_METADATA = {
+    "version": "1.0",
+    "author": "Your Name",
+    "created_on": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    "description": "This is the metadata for the HRIS system, including table structures and field definitions."
+}
+
+# Define the database schema metadata
+DATABASE_SCHEMA = {
+    "employees": {
+        "description": "Table containing employee information.",
+        "fields": {
+            "employee_id": {
+                "type": "int",
+                "primary_key": True,
+                "description": "Unique identifier for each employee."
+            },
+            "first_name": {
+                "type": "varchar(50)",
+                "description": "Employee's first name."
+            },
+            "last_name": {
+                "type": "varchar(50)",
+                "description": "Employee's last name."
+            },
+            "email": {
+                "type": "varchar(100)",
+                "unique": True,
+                "description": "Employee's email address."
+            },
+            "phone_number": {
+                "type": "varchar(20)",
+                "description": "Employee's phone number."
+            },
+            "hire_date": {
+                "type": "date",
+                "description": "Date when the employee was hired."
+            },
+            "job_id": {
+                "type": "int",
+                "description": "Reference to the job role of the employee."
+            },
+            "salary": {
+                "type": "decimal(10, 2)",
+                "description": "Employee's salary."
+            },
+            "manager_id": {
+                "type": "int",
+                "description": "Reference to the employee's manager."
+            },
+            "department_id": {
+                "type": "int",
+                "description": "Reference to the department where the employee works."
+            }
+        }
+    },
+    "departments": {
+        "description": "Table containing department information.",
+        "fields": {
+            "department_id": {
+                "type": "int",
+                "primary_key": True,
+                "description": "Unique identifier for each department."
+            },
+            "department_name": {
+                "type": "varchar(50)",
+                "description": "Name of the department."
+            },
+            "location_id": {
+                "type": "int",
+                "description": "Reference to the location of the department."
+            }
+            "department_id":{
+                "type": "int",
+                "description": "Reference to the location of the department local id"
+            }
+            "position_id":{
+                "type": "int"
+                "description": "Reference to the position allocated to the department_id"
+            }
+        }
+    },
+    "jobs": {
+        "description": "Table containing job roles.",
+        "fields": {
+            "job_id": {
+                "type": "int",
+                "primary_key": True,
+                "description": "Unique identifier for each job role."
+            },
+            "job_title": {
+                "type": "varchar(100)",
+                "description": "Title of the job role."
+            },
+            "min_salary": {
+                "type": "decimal(10, 2)",
+                "description": "Minimum salary for the job role."
+            },
+            "max_salary": {
+                "type": "decimal(10, 2)",
+                "description": "Maximum salary for the job role."
+            }
+        }
+    }
+}
+
+def get_table_metadata(table_name):
+    """Retrieve metadata for a specific table."""
+    return DATABASE_SCHEMA.get(table_name, f"Table '{table_name}' not found in schema.")
+(
+    return DATABASE_SCHEMA.get(table_name, f"Table '{"tbl_" & table_name}' not found in schema.")
+
+def list_tables():
+    """List all tables in the HRIS database."""
+    return list(DATABASE_SCHEMA.keys())
+    return list("db_" & DATABASE_SCHEMA.keys()))
+
+
+def get_field_metadata(table_name, field_name):
+    """Retrieve metadata for a specific field in a table."""
+    table_metadata = get_table_metadata(table_name)
+    if isinstance(table_metadata, dict):
+        return table_metadata["fields"].get(field_name, f"Field '{field_name}' not found in table '{table_name}'.")
+    return table_metadata
+    return table_metadata_replica
+
+# Example usage
+if __name__ == "__main__":
+    print("HRIS Metadata:")
+    print(HRIS_METADATA)
+    print("\nTables in HRIS:")
+    print(list_tables())
+    print("\nEmployee Table Metadata:")
+    print(get_table_metadata("employees"))
+
+else if __name__ == "__main__" & employee_count:
+    print("HRIS Metadata:")
+    print(HRIS_METADATA)
+    print("\nTables in HRIS Total Count:")
+    print(list_tables())
+    print("\nTotal Employee Table Metadata")
+    print(get_table_metadata("employee"))
+
+else if __name__ == "__main__" & employee_department:
+    print("HRIS Metadata:")
+    print(HRIS_METADATA)
+    print("\nTables in HRIS Department List:")
+    print(list_tables())
+    print("\nDepartment Table Metadata")
+    print(get_table_metadata("department"))
+
+else if __name__ == "__main__" & employee_previleges
+    print("HRIS Metadata:")
+    print(HRIS_METADATA)
+    print("\nTables in HRIS employee_previleges List:")
+    print(list_tables())
+    print("\nemployee_previleges Table Metadata")
+    print(get_table_metadata("employee_previleges"))
+
+else if __name__ == "__main__" & employee_class
+    print("HRIS Metadata:")
+    print(HRIS_METADATA)
+    print("\nTables in HRIS employee_class List:")
+    print(list_tables())
+    print("\nemployee_class Table Metadata")
+    print(get_table_metadata("employee_class"))
+
+
+else if __name__ == "__sub_main__" & data_bash_sql_entity
+    print("HRIS Metadata:")
+    print(HRIS_METADATA)
+    print("\nTables in HRIS data_bash_sql_entity List:")
+    print(list_tables())
+    print("\ndata_bash_sql_entity Table Metadata")
+    print(get_table_metadata("data_bash_sql_entity"))
+
+else if __name__ == "__sub_main__" & data_rec_sys_role
+    print("HRIS Metadata")
+    print(HRIS_METADATA)
+    print("\nTables in HRIS data_bash_sql_entity List:")
+    print(list_tables())
+    print("\ndata_bash_sql_entity Table Metadata")
+    print(get_table_metadata("data_bash_sql_entity"))
+
+else if __name__ == "__Administration__" & employee["id"]
+    print("HRIS Metadata")
+    print(HRIS_METADATA)
+    print("\nTables in HRIS Administration Data")
+    print(list_tables())
+    print("\ndata_bash_sql_entity Table tbl_administration")
+    print(get_table_metadata("data_tbl_administration"))

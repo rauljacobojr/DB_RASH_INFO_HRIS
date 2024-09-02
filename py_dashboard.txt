@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRIS Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HRIS Dashboard</h1>
+        </header>
+        <section class="dashboard">
+            <div class="card">
+                <h2>Employee Count</h2>
+                <p id="employeeCount">Loading...</p>
+            </div>
+            <div class="card">
+                <h2>Departments</h2>
+                <ul id="departmentList">Loading...</ul>
+            </div>
+            <div class="card">
+                <h2>Recent Hires</h2>
+                <ul id="recentHires">Loading...</ul>
+            </div>
+            <div class="data">
+                <h2>Document Data</h2>
+                <ul id="recentHires">Loading...</ul>
+            </div>
+            
+        </section>
+        <script src="script.js"></script>
+    </div>
+</body>
+
+
+
+</html>

@@ -21,10 +21,170 @@
 
 
 
+    <div class="navbar">
+        <h1>Human Resource Information System</h1>
+    </div>
 
+    <div class="sidebar">
+        
+        <a href="#">HR Administration</a>
+        <a href="#">Employee Management</a>
+        <a href="#">Reports and Analytics</a>
+        <a href="#">Leave</a>
+        <a href="#">Time Tracking</a>
+        <a href="#">Attendance</a>
+        <a href="#">Recruitment (ATS)</a>
+        <a href="#">On/Offboarding</a>
+        <a href="#">training</a>
+        <a href="#">Performance</a>
+        <a href="#">Career Development</a>
+        <a href="#">Request Desk</a>
+        <a href="#">Integration</a>
 
+    </div>
 
+    <div class="content">
+        <h2>HR Administration</h2>
+         <div class="HR_Administration">
+            <div id="hr_administration" class="content">
+                <div class="admin-section">
+                    <h2>Manage HR Settings</h2>
+                    <form action="#" method="POST">
+                        <label for="salutation">Salutation</label>
+                        <input type="text" id="salutation" name="salutation" placeholder="Enter salutation...">
+                        
+                        <label for="department">Department</label>
+                        <select id="department" name="department">
+                            <option value="hr">Human Resources</option>
+                            <option value="finance">Finance</option>
+                            <option value="it">IT</option>
+                            <option value="operations">Operations</option>
+                        </select>
+                        
+                        <label for="role">Role</label>
+                        <input type="text" id="role" name="role" placeholder="Enter role...">
+                        
+                        <button type="submit">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Employee Management</h2>
+        <div class="Employee_Management">
+            <div id="hr_administration" class="content">
+                <div class="admin-section">
+                    <h2>Manage HR Settings</h2>
+                    <form action="#" method="POST">
+                        <label for="salutation">Salutation</label>
+                        <input type="text" id="salutation" name="salutation" placeholder="Enter salutation...">
+                        
+                        <label for="department">Department</label>
+                        <select id="department" name="department">
+                            <option value="hr">Human Resources</option>
+                            <option value="finance">Finance</option>
+                            <option value="it">IT</option>
+                            <option value="operations">Operations</option>
+                        </select>
+                        
+                        <label for="role">Role</label>
+                        <input type="text" id="role" name="role" placeholder="Enter role...">
+                        
+                        <button type="submit">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+    </div>
+
+    <div class="content">
+        <h2>Reports and Analytics</h2>
+        <div class="Reports_And_Analytics"></div>
+        <div id="hr_administration" class="content">
+            <div class="admin-section">
+                <h2>Manage HR Settings</h2>
+                <form action="#" method="POST">
+                    <label for="salutation">Salutation</label>
+                    <input type="text" id="salutation" name="salutation" placeholder="Enter salutation...">
+                    
+                    <label for="department">Department</label>
+                    <select id="department" name="department">
+                        <option value="hr">Human Resources</option>
+                        <option value="finance">Finance</option>
+                        <option value="it">IT</option>
+                        <option value="operations">Operations</option>
+                    </select>
+                    
+                    <label for="role">Role</label>
+                    <input type="text" id="role" name="role" placeholder="Enter role...">
+                    
+                    <button type="submit">Save Settings</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Leave</h2>
+        <div class="Leave"></div>
+    </div>
+
+    <div>
+        <h2>Time Tracking</h2>
+        <div class="Time_Tracking"></div>
+    </div>
+
+    <div>
+        <h2>Attendance</h2>
+        <div class="Attendance"></div>
+    </div>
+
+    <div>
+        <h2>Recruitment (ATS)</h2>
+        <div class="Recruitment_ATS"></div>
+    </div>
+
+    <div>
+        <h2>On/Offboarding</h2>
+        <div class="OnOffboarding"></div>
+    </div>
+        <h2>Training</h2>
+        <div class="Training"></div>
+    </div>
+    
+    <div>
+        <h2>Performance</h2>
+        <div class="Performance"></div>
+    </div>
+
+    <div>
+        <h2>Career Development</h2>
+        <div class="Career_Development"></div>
+    </dv>
+
+    <div>
+        <h2>Request Desk</h2>
+        <div class="Request_Desk"></div>
+    </div>
+
+    <div>
+        <h2>Integration</h2>
+        <div class="Integration"></div>
+    </div>
+    
+    <div>
+        <h2>Dashboard</h2>
+        <div class="Dashboard""></div>
+    </div>
+
+    <div>
+        <h2>Integration</h2>
+        <div></div>
+    </div>
 </body>
+
 </html>
 
 

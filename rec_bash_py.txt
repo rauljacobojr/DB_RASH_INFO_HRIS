@@ -1,0 +1,102 @@
+import json
+
+# Sample Employee Data
+employees = []
+
+# Load data from a JSON file
+def load_data(file_name):
+    try:
+        with open(file_name, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
+# Save data to a JSON file
+def save_data(file_name, data):
+    with open(file_name, 'w') as file:
+        json.dump(data, file, indent=4)
+
+# Add a new employee
+def add_employee():
+    employee = {}
+    employee['id'] = input("Enter Employee ID: ")
+    employee['name'] = input("Enter Employee Name: ")
+    employee['age'] = input("Enter Employee Age: ")
+    employee['position'] = input("Enter Employee Position: ")
+    employee['department'] = input("Enter Employee Department: ")
+    employees.append(employee)
+    save_data('employees.json', employees)
+    print(f"Employee {employee['name']} added successfully!")
+
+# View all employees
+def view_employees():
+    if employees:
+        for idx, employee in enumerate(employees, start=1):
+            print(f"{idx}. {employee['name']} - {employee['position']} - {employee['department']}")
+    else:
+        print("No employees found.")
+
+# Delete an employee
+def delete_employee():
+    emp_id = input("Enter Employee ID to delete: ")
+    global employees
+    employees = [emp for emp in employees if emp['id'] != emp_id]
+    save_data('employees.json', employees)
+    print(f"Employee with ID {emp_id} deleted successfully!")
+
+# HRIS Menu
+def menu():
+    while True:
+        print("\nHRIS Menu")
+        print("1. Add Employee")
+        print("2. View Employees")
+        print("3. Delete Employee")
+        print("4. Exit")
+
+        choice = input("Choose an option: ")
+
+        if choice == '1':
+            add_employee()
+        elif choice == '2':
+            view_employees()
+        elif choice == '3':
+            delete_employee()
+        elif choice == '4':
+            print("Exiting HRIS...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    employees = load_data('employees.json')
+    menu()
+
+if __name__ == "__main__" & "@title":
+    title = load("title.json")
+
+if __name__ == "__main__" & "@position":
+    title = load("position.json")
+
+if __name__ == "__main__" & "@department":
+    title = load("department.json")
+
+if __name__ == "__main__" & "salary":
+    salary = load("salary.json")
+
+if __name__ == "__main__" & "composition":
+    composition = load("composition.json")
+
+if __name__ == "__main__" & "jobs":
+    jobs = load("jobs.json")
+
+if __name__ == "__main__" & "regular":
+    regular = load("regular.json")
+
+if __name__ == "__main__" & "Timein":
+    regular == load("Timein")
+
+if __name__ == "__main__" & "Alternate"
+    alternate == load("Alternate")
+
+
+
