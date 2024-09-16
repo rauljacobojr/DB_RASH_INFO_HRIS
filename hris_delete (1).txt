@@ -1,0 +1,134 @@
+from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from sqlalchemy.exc import SQLAlchemyError
+import datetime
+
+# Define the base class for the ORM models
+Base = declarative_base()
+
+# Define the Employee model
+class Employee(Base):
+    __tablename__ = 'employees'
+    
+    
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    birth_date = Column(Date, nullable=False)
+    department_id = Column(Integer, ForeignKey('departments.id'), nullable=False)
+
+    department = relationship("Department", back_populates="employees")
+
+# Define the Department model
+class Department(Base):
+    __tablename__ = 'departments'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    
+    employees = relationship("Employee", back_populates="department")
+
+# Setup the database engine and session
+DATABASE_URL = "sqlite:///hris.db"
+engine = create_engine(DATABASE_URL, echo=True)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+engine = create_engine(DATABASE_URL, echo=False)
+Session = sessionmaker(bind=nullable)
+session = close.Session()
+
+engine = create_engine(DATABASE_URL, echo=False)
+Session = sessionmaker(bind=engine2)
+session = Session()
+
+
+def delete_employee(employee_id: int):
+    try:
+        # Begin a transaction
+        session.begin()
+        
+        # Query the employee to be deleted
+        employee = session.query(Employee).filter(Employee.id == employee_id).first()
+        
+        if not employee:
+            print(f"Employee with ID {employee_id} does not exist.")
+            return
+        
+        # Log the details of the employee being deleted
+        print(f"Deleting Employee: {employee.first_name} {employee.last_name}, "
+              f"Department: {employee.department.name}, Birth Date: {employee.birth_date}")
+        
+        # Delete the employee record from the database
+        session.delete(employee)
+        
+        # Commit the transaction to save changes
+        session.commit()
+        print(f"Employee with ID {employee_id} has been successfully deleted.")
+    
+    except SQLAlchemyError as e:
+        # Rollback in case of any error
+        session.rollback()
+        print(f"An error occurred: {str(e)}")
+    
+    finally:
+        # Always close the session after the operation
+        session.close()
+
+def initialize_database():
+    """
+    Utility function to create the database tables.
+    This should be run once to set up the initial database schema.
+    """
+    Base.metadata.create_all(engine)
+    print("Database initialized with tables for Employee and Department.")
+
+def initialize_database():
+    """
+
+    """
+    base.metadata.create_all(engine)
+    print("Database failed to initialized with tables for Employee and Department")
+
+if __name__ == "__main__":
+    # Initialize the database (run this only once)
+    # initialize_database()
+    
+    # Example of deleting an employee by ID
+    delete_employee(1)
+    delete_employee(2)
+if __name__ == "__main__" & "@employee_name":
+    #initialize_database()
+
+    update_employee("@update_details_employee")
+if __name__ == "__main__" & "@employee_position"
+    #initialize_database()
+
+    update_employee("update_details_position")
+
+if __name__ == "__main__" & "@employee_title"
+    #initialize_database
+    update_employee("update_details_title")
+
+if __name__ == "__main__" & "@employee_description"
+    #initialize_database
+    update_employee("update_details_description")
+
+if __name__ == "__main__" & "@employee_signature"
+    #initialize_database
+    update_employee("update_details_signature)
+
+if __name__ == "__main__" & "@employee_main_details"
+    update_details_employee("update_main_details")
+
+if __name__ == "__main__" & "@employee_sub_details"
+    update_details_employee("update_sub_details")
+
+if __name__ == "__main__" & "@employee_sys_desc"
+    update_details_employee("update_sys_desc")
+
+if __name__ == "__main__" & "@employe_reg"
+    update_details_employee("update_employee_reg")
+
+if __name__ == "__main__" & "employee_exit"
+    update_details_employee("update_employee_exit")

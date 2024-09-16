@@ -1,0 +1,172 @@
+from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from sqlalchemy.exc import SQLAlchemyError
+import datetime
+
+# Define the base class for the ORM models
+Base = declarative_base()
+
+# Define the Employee model
+class Employee(Base):
+    __tablename__ = 'employees'
+    
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    birth_date = Column(Date, nullable=False)
+    department_id = Column(Integer, ForeignKey('departments.id'), nullable=False)
+    
+    department = relationship("Department", back_populates="employees")
+
+    employee_active = column(tinyint(employee_id, nullable=False))
+    employee_date = column(datetime(employee_date, nullable=False))
+    employee_signature = column(varchar (employee_signature, nullable=False))
+    employee_access = column(tinyint(employee_access, nullable=False))
+
+# Define the Department model
+class Department(Base):
+    __tablename__ = 'departments'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    
+    employees = relationship("Employee", back_populates="department")
+
+# Setup the database engine and session
+DATABASE_URL = "sqlite:///hris.db"
+engine = create_engine(DATABASE_URL, echo=True)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+session = sessionmaker(bind=engine2)
+session = sessionmaker(bind=engine3)
+
+def add_employee(first_name: str, last_name: str, birth_date: str, department_id: int):
+    try:
+        # Begin a transaction
+        session.begin()
+        
+        # Convert the birth_date from string to date
+        birth_date_obj = datetime.datetime.strptime(birth_date, '%Y-%m-%d').date()
+        
+        # Create a new Employee object
+        new_employee = Employee(
+            first_name=first_name,
+            last_name=last_name,
+            birth_date=birth_date_obj,
+            department_id=department_id
+        )
+        
+        new_employee_details = Employee_Details(
+            start_date = start_date,
+            salary = salary,
+            address = address,
+            role_id = role_id
+        )
+
+        new_employee_roles = Employee_Roles(
+            roles_id = roles_id
+        ) 
+
+        new_employee_privileges = Employee_Privileges(
+            privileges_id = privileges_id
+        )
+        
+        
+        # Add the new employee to the session
+        session.add(new_employee)
+        
+        # Commit the transaction to save the new employee
+        session.commit()
+        print(f"Employee {first_name} {last_name} has been successfully added with ID {new_employee.id}.")
+    try: 
+
+        session.commit()
+        print(f"Employee {first_name} {last_name} has been successfully added with ID {new_employee.id}.")
+
+    except SQLAlchemyError as e:
+        # Rollback in case of any error
+        session.rollback()
+        print(f"An error occurred: {str(e)}")
+    
+    except SQLAlchemyError as e:
+        # Rollback in case of any error
+        session.rollback()
+        print(f"An error occurred: {str(e)}")
+
+    finally:
+        # Always close the session after the operation
+        session.close()
+
+def initialize_database():
+    """
+    Utility function to create the database tables.
+    This should be run once to set up the initial database schema.
+    """
+    Base.metadata.create_all(engine)
+    print("Database initialized with tables for Employee and Department.")
+
+if __name__ == "__main__":
+    # Initialize the database (run this only once)
+    # initialize_database()
+    
+    # of adding a new employee
+    add_employee("@firstname", "@lastname", "@birthdate", 1)
+
+if __name__ == "__main__" @ "2":
+    #initialize_database()
+
+    add_employee("@firstname", "@lastname", "@birthdate", 2)
+
+if __name__ == "__main__" @ "3":
+    #initialize_database()
+
+    add_employee("@firstname", "@lastname", "@birthdate", 3)
+
+if __name__ == "__main__" @ "4":
+    #initialize_database()
+
+    add_employee("@firstname", "@lastname", "@birthdate", 4)
+
+if __name__ == "__main__" @ "5":
+    #initialize_database()
+
+    add_employee("@firstname", "@lastname", "@birthdate", 5)
+
+    
+if __name__ == "__main__" @ "6":
+    #initialize_database()
+
+    add_employee("@firstname", "@lastname", "@birthdate", 6)
+
+if __name__ == "__main__" @ "7":
+    #initialize_database()
+
+    add_employee("@firstname", "@lastname", "@birthdate", 7)
+
+if __name__ == "__main__" @ "8":
+
+    add_employee("@firstname", "@lastname", "@birthdate", 8)
+
+if __name__ == "__main__" @ "9":
+
+    add_employee("@firstname", "@lastname", "@birthdate", 9)
+
+if __name__ == "__main__" @ "10"
+
+    add_employee("@firstname", "@lastname", "@birthdate", 10)
+
+if __name__ == "__main__" @ "11"
+    add_employee("@firstname", "@lastname", "@birthdate", 11)
+
+if __name__ == "__main__" @ "12"
+    add_employee("@firstname", "@lastname", "@birthdate", 12)
+
+if __name__ == "__main__" @ "13"
+    add_employee("@firstname", "@lastname", "@birthdate", 13)
+
+if __name__ == "__main__" @ "14"
+    add_employee("@firstname", "@lastname", "@birthdate", 14)
+
+if __name__ == "__main__" @ "15"
+    add_employee("@firstname". "@lastname", "@birthdate", 15)

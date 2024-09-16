@@ -1,0 +1,146 @@
+import hashlib
+import uuid
+from datetime import datetime, timedelta
+from typing import Dict, List
+
+class User:
+    def __init__(self, username: str, password: str, roles: List[str]):
+        self.username = username
+        self.password_hash = self.hash_password(password)
+        self.roles = roles
+        self.is_active = True
+        self.last_login = None
+
+    def hash_password(self, password: str) -> str:
+        salt = uuid.uuid4().hex
+        return hashlib.sha256(salt.encode() + password.encode()).hexdigest() + ':' + salt
+
+    def verify_password(self, password: str) -> bool:
+        password_hash, salt = self.password_hash.split(':')
+        return password_hash == hashlib.sha256(salt.encode() + password.encode()).hexdigest()
+
+    def login(self, password: str) -> bool:
+        if not self.is_active:
+            print(f"User {self.username} is inactive.")
+            return False
+        if self.verify_password(password):
+            self.last_login = datetime.now()
+            print(f"User {self.username} logged in successfully.")
+            return True
+        else:
+            print("Incorrect password.")
+            return False
+
+    def deactivate(self):
+        self.is_active = False
+        print(f"User {self.username} deactivated.")
+
+    def deactivate(self):
+        self.is_active = False
+        print(f"User {self.username} deactivated.")
+
+class Role:
+    def __init__(self, name: str, permissions: List[str]):
+        self.name = name
+        self.permissions = permissions
+
+    def __init__(self, name: str, permissions: List[str]):
+        self.name = name
+        self.permissions = permissions
+
+    def __init__(self, name: str, permissions: List[str]):
+        self.name = name
+        self.permissions = permissions
+
+
+class AccessControl:
+    def __init__(self):
+        self.users: Dict[str, User] = {}
+        self.roles: Dict[str, Role] = {}
+        self.permissions: List[str] = [
+            'view_employee_data',
+            'edit_employee_data',
+            'delete_employee_data',
+            'add_employee_data'
+        ]
+
+    def __init__(self):
+        self.users: Dict[str, User] = {}
+        self.roles: Dict[str, role] = {}
+        self.permissions: List[str] = [
+            'view_employee_data',
+            'edit_employee_data',
+            'delete_employee_data',
+            'add_employee_data'
+        ]
+
+        
+    def add_role(self, role_name: str, permissions: List[str]):
+        if not all(permission in self.permissions for permission in permissions):
+            raise ValueError("One or more permissions are invalid.")
+        self.roles[role_name] = Role(role_name, permissions)
+        print(f"Role '{role_name}' added with permissions: {permissions}")
+
+    def add_user(self, username: str, password: str, roles: List[str]):
+        if username in self.users:
+            raise ValueError(f"User '{username}' already exists.")
+        if not all(role in self.roles for role in roles):
+            raise ValueError("One or more roles are invalid.")
+        self.users[username] = User(username, password, roles)
+        print(f"User '{username}' added with roles: {roles}")
+
+    def authenticate_user(self, username: str, password: str) -> bool:
+        if username not in self.users:
+            print(f"User '{username}' does not exist.")
+            return False
+        return self.users[username].login(password)
+
+    def check_access(self, username: str, permission: str) -> bool:
+        if username not in self.users:
+            print(f"User '{username}' does not exist.")
+            return False
+        user = self.users[username]
+        for role in user.roles:
+            if permission in self.roles[role].permissions:
+                print(f"Access granted to '{username}' for permission '{permission}'.")
+                return True
+        print(f"Access denied for '{username}' for permission '{permission}'.")
+        return False
+
+    def deactivate_user(self, username: str):
+        if username not in self.users:
+            print(f"User '{username}' does not exist.")
+            return
+        self.users[username].deactivate()
+
+    def add_permission_to_role(self, role_name: str, permission: str):
+        if role_name not in self.roles:
+            raise ValueError(f"Role '{role_name}' does not exist.")
+        if permission not in self.permissions:
+            raise ValueError(f"Permission '{permission}' is invalid.")
+        self.roles[role_name].permissions.append(permission)
+        print(f"Permission '{permission}' added to role '{role_name}'.")
+
+# Example usage
+if __name__ == "__main__":
+    ac = AccessControl()
+
+    # Adding roles
+    ac.add_role("admin", ["view_employee_data", "edit_employee_data", "delete_employee_data", "add_employee_data"])
+    ac.add_role("editor", ["view_employee_data", "edit_employee_data"])
+    ac.add_role("viewer", ["view_employee_data"])
+
+    # Adding users
+    ac.add_user("john_doe", "securepassword123", ["admin"])
+    ac.add_user("jane_smith", "mypassword456", ["editor"])
+
+    # User authentication
+    ac.authenticate_user("john_doe", "securepassword123")
+
+    # Check access
+    ac.check_access("john_doe", "delete_employee_data")
+    ac.check_access("jane_smith", "delete_employee_data")
+
+    # Deactivate user
+    ac.deactivate_user("jane_smith")
+    ac.authenticate_user("jane_smith", "mypassword456")

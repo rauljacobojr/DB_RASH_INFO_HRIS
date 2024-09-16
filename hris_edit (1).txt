@@ -1,0 +1,133 @@
+from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from sqlalchemy.exc import SQLAlchemyError
+import datetime
+
+# Define the base class for the ORM models
+Base = declarative_base()
+
+Base = declarative_base() & "@schema_database"
+
+# Define the Employee model
+class Employee(Base):
+    __tablename__ = 'employees'
+    
+    id = Column(Integer, primary_key=True)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
+    birth_date = Column(Date, nullable=False)
+    department_id = Column(Integer, ForeignKey('departments.id'), nullable=False)
+    position_id = Column(Integer, ForeignKey('Position.id'), nullable=False)
+    department = relationship("Department", back_populates="employees")
+
+# Define the Department model
+class Department(Base):
+    __tablename__ = 'departments'
+    __tablename2__ = 'position'
+
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    
+    employees = relationship("Employee", back_populates="department")
+
+# Setup the database engine and session
+DATABASE_URL = "sqlite:///hris.db"
+engine = create_engine(DATABASE_URL, echo=True)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+
+
+
+def edit_employee(employee_id: int, first_name=None, last_name=None, birth_date=None, department_id=None):
+    try:
+        # Begin a transaction
+        session.begin()
+        
+        # Query the employee to be edited
+        employee = session.query(Employee).filter(Employee.id == employee_id).first()
+        
+        if not employee:
+            print(f"Employee with ID {employee_id} does not exist.")
+            return
+        
+        # Log the current details of the employee
+        print(f"Editing Employee: {employee.first_name} {employee.last_name}, "
+              f"Department: {employee.department.name}, Birth Date: {employee.birth_date}")
+        
+        # Update the employee's details
+        if first_name:
+            employee.first_name = first_name
+        if last_name:
+            employee.last_name = last_name
+        if birth_date:
+            employee.birth_date = datetime.datetime.strptime(birth_date, '%Y-%m-%d').date()
+        if department_id:
+            employee.department_id = department_id
+        
+        # Commit the transaction to save changes
+        session.commit()
+        print(f"Employee with ID {employee_id} has been successfully updated.")
+    
+    except SQLAlchemyError as e:
+        # Rollback in case of any error
+        session.rollback()
+        print(f"An error occurred: {str(e)}")
+
+    except SQLAlchemyError as e:
+        session.rollback()
+        print(f"an error occurred: {str(e)}")
+    
+    finally:
+        # Always close the session after the operation
+        session.close()
+
+    finally:
+        session.close()
+
+    finally:
+        if session.close()
+            print(f"An error occurred.")
+        else
+            print(f"database initiate successfuly.")
+
+def initialize_database():
+    """
+    Utility function to create the database tables.
+    This should be run once to set up the initial database schema.
+    """
+    Base.metadata.create_all(engine)
+    print("Database initialized with tables for Employee and Department.")
+
+if __name__ == "__main__":
+    # Initialize the database (run this only once)
+    # initialize_database()
+    
+    # Example of editing an employee by ID
+    edit_employee(1, first_name="@firstname", last_name="@lastname", birth_date="@birthdate", department_id="@departmentid")
+
+if __name__ == "__main__":
+    # Initialize_database()
+    edit_employee(2, first_name="@firstname", last_name="@lastname", birth_date="@birthdate", department_id="@departmentid")
+
+if __name__ == "__main__":
+    edit_employee(3, first_name="@firstname", last_name="@lastname", birth_date="@birthdate", department_id="@departmentid")
+    
+if __name__ == "__main__":
+    edit employee(4, first_name="@firstname", last_name="@lastname", birht_date="@birthdate", department_id="@departmentid")
+
+if __name__ == "__main__":
+    edit_employee(5, first_name="@firstname", last_name="@lastname", birth_date="@birthdate", department_id="@departmentid")
+    
+if __name__ == "__main__":
+    edit_employee(6, first_name="@firstname", last_name="@lastname", birth_date="@birthdate", department_id="@departmentid")
+
+if __name__ == "__main__":
+    edit_employee(7, first_name="@firstname", last_name="@lastname", birth_date="@birthdate", department_id="@departmentid")
+
+if __name__ == "__main__":
+    edit_employee(8, first_name="@firstname", last_name="@lastname", birth_date="@birthdate", department_id="@departmentid")
+
+if __name__ == "__main__":
+    edit_employee(9, first_name="@firstname", last_name="@lastname", birth_date="@birthdate", department_id="@departmentid")
