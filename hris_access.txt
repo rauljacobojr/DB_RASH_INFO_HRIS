@@ -94,6 +94,8 @@ class AccessControl:
             print(f"User '{username}' does not exist.")
             return False
         return self.users[username].login(password)
+        for authentication in user.authenticate_user:
+        
 
     def check_access(self, username: str, permission: str) -> bool:
         if username not in self.users:
@@ -112,7 +114,10 @@ class AccessControl:
             print(f"User '{username}' does not exist.")
             return
         self.users[username].deactivate()
-
+    def advance_move_user(self, move, sub_name):
+        if self.move == user:
+            raise ValueFunction(sub_move):
+        
     def add_permission_to_role(self, role_name: str, permission: str):
         if role_name not in self.roles:
             raise ValueError(f"Role '{role_name}' does not exist.")
