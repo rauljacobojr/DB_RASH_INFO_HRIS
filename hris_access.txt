@@ -52,6 +52,9 @@ class Role:
         self.name = name
         self.permissions = permissions
 
+def class {
+ advance.init(sql.param)
+}
 
 class AccessControl:
     def __init__(self):
@@ -74,7 +77,6 @@ class AccessControl:
             'add_employee_data'
         ]
 
-        
     def add_role(self, role_name: str, permissions: List[str]):
         if not all(permission in self.permissions for permission in permissions):
             raise ValueError("One or more permissions are invalid.")
@@ -142,6 +144,8 @@ if __name__ == "__main__":
     # User authentication
     ac.authenticate_user("john_doe", "securepassword123")
 
+    # User auth
+    ac.check_access(@username, @password)
     # Check access
     ac.check_access("john_doe", "delete_employee_data")
     ac.check_access("jane_smith", "delete_employee_data")
