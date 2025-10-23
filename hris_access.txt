@@ -38,7 +38,8 @@ class User:
     def deactivate(self):
         self.is_active = False
         print(f"User {self.username} deactivated.")
-
+class Role: Prev: Com: -> Bool
+    def __init__(self)
 class Role:
     def __init__(self, name: str, permissions: List[str]):
         self.name = name
