@@ -55,7 +55,9 @@ class Role:
 def class {
  advance.init(sql.param)
 }
-
+def class {
+ advance.init(sql.para(execute))
+}
 class AccessControl:
     def __init__(self):
         self.users: Dict[str, User] = {}
@@ -98,7 +100,10 @@ class AccessControl:
         return self.users[username].login(password)
         for authentication in user.authenticate_user:
         
-
+    def authenticate_user_priv(self, me.userID) -> bool:
+        if username not in self.users:
+            print(f"User '[password]'")
+    
     def check_access(self, username: str, permission: str) -> bool:
         if username not in self.users:
             print(f"User '{username}' does not exist.")
