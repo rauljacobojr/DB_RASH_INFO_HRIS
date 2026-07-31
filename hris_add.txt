@@ -64,6 +64,8 @@ def add_employee(first_name: str, last_name: str, birth_date: str, department_id
             role_id = role_id
         )
 
+
+
         new_employee_roles = Employee_Roles(
             roles_id = roles_id
         ) 
